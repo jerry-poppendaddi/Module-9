@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
-
 namespace PracticeEvent;
 
 public delegate void EventList(); //delegate created
@@ -17,8 +16,7 @@ public class EventClass
     public void ZAsorting()
     {
         ZASorting();
-    }
-    
+    }    
     protected virtual void AZSorting() //Creating Sorting method A-Z
     {
         SortingAZ?.Invoke();
@@ -32,16 +30,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        string[] list = new string[5]; //creating an array of names
-        list[0] = "Anna";
-        list[1] = "Bobby";
-        list[2] = "Ciara";
-        list[3] = "Howard";
-        list[4] = "Sarah";
-
         //Little intro
         Console.WriteLine("Please enter either number 1 or number 2 below:");
-        int input = Console.ReadLine();
+        int input = Int32.Parse(Console.ReadLine());
         CheckInput(input);              //Checking input value whether it's 1 or 2
         
         EventClass obj = new EventClass(); //registering methods with their respective events
@@ -50,34 +41,56 @@ class Program
                    
         if (input == 1)
         {
-            AZsorting();
+            obj.AZsorting();
         }
         else
         {
             if (input == 2)
             {
-                ZAsorting();
+                obj.ZAsorting();
             }
         }
 
         Console.ReadKey();
     }
 
-    public static void SortingUp(string[] list) //method acting in the Z-A event
+    public static void SortingUp() //method acting in the Z-A event
     {
+        string[] list = new string[5]; //creating an array of names
+        list[0] = "Anna";
+        list[1] = "Bobby";
+        list[2] = "Ciara";
+        list[3] = "Howard";
+        list[4] = "Sarah";
+
         Console.WriteLine("Here is your Z-A list:");
+        Array.Sort(list);
+        Array.Reverse(list);
+        foreach (string s in list)
+        {
+            Console.WriteLine(s);
+        }
 
     }
-
-    public static void SortingDown(string[] list) //method acting in the A-Z event
+    public static void SortingDown() //method acting in the A-Z event
     {
+        string[] list = new string[5]; //creating an array of names
+        list[0] = "Anna";
+        list[1] = "Bobby";
+        list[2] = "Ciara";
+        list[3] = "Howard";
+        list[4] = "Sarah";
+
         Console.WriteLine("This is your A-Z list:");
         Array.Sort(list);
-        Console.WriteLine(String.Join(", ", ", ", list));
+        foreach (string s in list)
+        {
+            Console.WriteLine(s);
+        }
     }
-
     public class MyPersonalException : Exception  //creating our own Exception
     {
+        public MyPersonalException() { }
         public MyPersonalException(string message) : base(String.Format("Invalid input"))
         {
 
@@ -97,9 +110,4 @@ class Program
             }
         }
     }
-}
-
-
-
-
-    
+}    

@@ -33,7 +33,14 @@ class Program
         //Little intro
         Console.WriteLine("Please enter either number 1 or number 2 below:");
         int input = Int32.Parse(Console.ReadLine());
-        CheckInput(input);              //Checking input value whether it's 1 or 2
+        try
+        {
+            CheckInput(input);
+        }
+        catch(MyPersonalException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         EventClass obj = new EventClass(); //registering methods with their respective events
         obj.SortingAZ += SortingDown;
@@ -50,7 +57,7 @@ class Program
                 obj.ZAsorting();
             }
         }
-
+        Console.WriteLine("Press any key to exit");
         Console.ReadKey();
     }
 
@@ -91,23 +98,20 @@ class Program
     public class MyPersonalException : Exception  //creating our own Exception
     {
         public MyPersonalException() { }
-        public MyPersonalException(string message) : base(String.Format("Invalid input"))
+        public MyPersonalException(string message) : base(message)
         {
 
         }
     }
     public static void CheckInput(int input)
     {
-      if (input != 1)
+        if (input != 1 && input != 2)
         {
-            throw new MyPersonalException();
+            throw new MyPersonalException("Invalid input");
         }
         else
         {
-            if (input != 2 )
-            {
-                throw new MyPersonalException();
-            }
+
         }
     }
 }    
